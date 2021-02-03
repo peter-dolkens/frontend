@@ -12,9 +12,7 @@ export default <T extends Constructor<HassBaseEl>>(superClass: T) =>
     protected firstUpdated(changedProps) {
       super.firstUpdated(changedProps);
       // Need to load in advance because when disconnected, can't dynamically load code.
-      import(
-        /* webpackChunkName: "notification-manager" */ "../managers/notification-manager"
-      );
+      import("../managers/notification-manager");
     }
 
     updated(changedProperties) {
@@ -35,7 +33,8 @@ export default <T extends Constructor<HassBaseEl>>(superClass: T) =>
           duration: 0,
           dismissable: false,
           action: {
-            text: this.hass!.localize("ui.notification_toast.dismiss"),
+            text:
+              this.hass!.localize("ui.notification_toast.dismiss") || "Dismiss",
             action: () => {},
           },
         });
